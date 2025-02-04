@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Продажа UC для PUBG MOBILE</title>
-  <!-- Подключаем шрифт Oswald для брутального минимализма -->
+  <!-- Подключаем шрифт Oswald -->
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Анимация появления (fadeInUp) */
+    /* Ключевые кадры появления */
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -18,20 +18,17 @@
         transform: translateY(0);
       }
     }
-
-    /* Анимация «молнии» для выделения блока при наведении */
+    /* Анимация молнии (быстрое мерцание) */
     @keyframes lightning {
-      0% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-      }
-      30% {
-        box-shadow: 0 0 20px 5px rgba(255, 255, 255, 1);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-      }
+      0% { box-shadow: 0 0 0 0 rgba(80,200,120,0); }
+      30% { box-shadow: 0 0 20px 5px rgba(80,200,120,1); }
+      100% { box-shadow: 0 0 0 0 rgba(80,200,120,0); }
     }
-
+    /* Анимация мерцания для эффекта заполнения */
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
     /* Сброс стилей */
     * {
       margin: 0;
@@ -41,7 +38,7 @@
     html {
       font-size: 18px;
     }
-    /* Затемнённый фон с узором и водяным знаком */
+    /* Глобальный фон – затемнённый с узором */
     body {
       font-family: 'Oswald', sans-serif;
       background-color: #141414;
@@ -49,52 +46,28 @@
         repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px),
         repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px);
       background-size: 20px 20px;
-      color: #e0e0e0;
+      color: #c0c0c0;
       line-height: 1.6;
       position: relative;
-    }
-    /* Водяной знак на заднем фоне */
-    body::before {
-      content: "АШАЛЕТЬ ЭТО ВНАТУРЕ ЧЕ ЗА САЙТ ЖИ ЕС";
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 5rem;
-      color: rgba(255, 255, 255, 0.05);
-      white-space: nowrap;
-      z-index: -1;
-      pointer-events: none;
+      text-align: left;
     }
     /* Адаптация для мобильных устройств */
     @media (max-width: 600px) {
-      body::before {
-        font-size: 3rem;
-        white-space: normal;
-        text-align: center;
-        width: 90%;
-      }
-      html {
-        font-size: 16px;
-      }
+      html { font-size: 16px; }
     }
     a {
-      color: #e0e0e0;
+      color: #c0c0c0;
       text-decoration: none;
       transition: color 0.3s ease;
     }
     a:hover {
       text-decoration: underline;
-      color: #ccc;
+      color: #aaa;
     }
-    /* Контактные ссылки с увеличением и свечением */
+    /* Убираем дополнительные эффекты для контактов */
     a.contact {
       display: inline-block;
-      transition: transform 0.3s ease, text-shadow 0.3s ease;
-    }
-    a.contact:hover {
-      transform: scale(1.1);
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      /* Без дополнительных эффектов */
     }
     .container {
       max-width: 800px;
@@ -102,33 +75,30 @@
       padding: 2rem;
     }
     /* Основные блоки: header, section, footer */
-    header,
-    section,
-    footer {
+    header, section, footer {
+      background-color: #1e1e1e;
+      background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.2) 0, rgba(0,0,0,0.2) 1px, transparent 1px, transparent 10px);
       border: 1px solid #444;
       border-radius: 10px;
       padding: 1.5rem;
       margin-bottom: 2rem;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       animation: fadeInUp 0.8s ease-out;
+      text-align: left;
     }
-    /* Эффект «молнии» при наведении на основные блоки */
-    header:hover,
-    section:hover,
-    footer:hover {
+    header:hover, section:hover, footer:hover {
       transform: translateY(-3px);
       animation: lightning 0.5s ease-out;
     }
-    /* Заголовок страницы с иконкой-ниндзя */
+    /* Заголовок страницы – центрирован */
     header {
       text-align: center;
     }
     header h1 {
       font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.2rem;
       font-weight: 700;
-      display: inline-flex;
-      align-items: center;
+      color: #c0c0c0;
     }
     header h1::before {
       content: "";
@@ -141,29 +111,38 @@
       margin-right: 10px;
     }
     header p {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: #aaa;
+      margin-bottom: 1rem;
+      text-align: center;
     }
-    /* Заголовки секций с иконкой-ниндзя */
+    /* Заголовки секций: эффект заполнения внутри букв при наведении */
     section h2 {
       font-size: 1.8rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       font-weight: 700;
-      display: inline-flex;
-      align-items: center;
+      position: relative;
+      color: #c0c0c0;
     }
-    section h2::before {
-      content: "";
-      display: inline-block;
-      vertical-align: middle;
-      width: 30px;
-      height: 30px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/3/39/Ninja.svg') no-repeat center center;
-      background-size: contain;
-      margin-right: 10px;
+    section h2::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: transparent;
+      background: linear-gradient(45deg, #50C878, #3CB371);
+      -webkit-background-clip: text;
+      background-clip: text;
+      clip-path: inset(100% 0 0 0);
+      transition: clip-path 1s ease;
+    }
+    section:hover h2::after {
+      clip-path: inset(0 0 0 0);
     }
     section p {
       margin-bottom: 1rem;
+      color: #d0d0d0;
     }
     ul {
       list-style: none;
@@ -181,7 +160,7 @@
       left: 0;
       color: #fff;
     }
-    /* Оформление для пакетов UC с белой обводкой, свечением и анимацией */
+    /* Оформление UC-пакетов (.price-card) */
     .price-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -189,31 +168,52 @@
       margin: 1rem 0;
     }
     .price-card {
-      background-color: #1e1e1e;
+      background-color: #1c1c1c;
+      background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.3) 0, rgba(0,0,0,0.3) 1px, transparent 1px, transparent 8px);
       border: 2px solid #fff;
       border-radius: 10px;
       padding: 1.5rem;
-      text-align: center;
+      text-align: left;
       cursor: default;
-      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px 2px rgba(255,255,255,0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       animation: fadeInUp 0.8s ease-out;
       position: relative;
+      overflow: hidden;
     }
     .price-card:hover {
       transform: translateY(-5px);
       animation: lightning 0.5s ease-out;
     }
+    /* Эффект заполнения для заголовков UC-пакетов (h3) */
     .price-card h3 {
       margin-bottom: 0.5rem;
       font-size: 1.4rem;
       font-weight: 700;
+      position: relative;
+      color: #c0c0c0;
+    }
+    .price-card h3::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: transparent;
+      background: linear-gradient(45deg, #50C878, #3CB371);
+      -webkit-background-clip: text;
+      background-clip: text;
+      clip-path: inset(100% 0 0 0);
+      transition: clip-path 1s ease;
+    }
+    .price-card:hover h3::after {
+      clip-path: inset(0 0 0 0);
     }
     .price-card .price {
       font-size: 1.2rem;
       font-weight: 700;
     }
-    /* Контактные элементы в списке оформления заказа */
+    /* Элементы списка оформления заказа */
     #order ul li {
       transition: transform 0.3s ease;
     }
@@ -224,7 +224,7 @@
     footer {
       font-size: 0.9rem;
       color: #aaa;
-      text-align: center;
+      text-align: left;
     }
     footer p.small {
       font-size: 0.8rem;
@@ -238,62 +238,65 @@
       <h1>Продажа UC для PUBG MOBILE</h1>
       <p>Профессионально. Минималистично. Надёжно.</p>
     </header>
-    
+
     <!-- Описание работы -->
     <section id="about">
-      <h2>Описание работы</h2>
+      <h2 data-text="Описание работы">Описание работы</h2>
       <p>Я предлагаю пополнение UC в PUBG и других цифровых товаров вручную. Для оформления заказа необходимо:</p>
       <ul>
-        <li>Написать мне в личные сообщения (контакты ниже).</li>
+        <li>Написать мне в личные сообщения.</li>
         <li>Уточнить актуальную цену, так как стоимость может меняться в зависимости от курса.</li>
         <li>Совершить оплату.</li>
         <li>Дождаться выполнения заказа — я обработаю его вручную и отправлю UC на указанный аккаунт.</li>
       </ul>
       <p><strong>Важно:</strong> Все заказы выполняются в порядке очереди, после подтверждения оплаты.</p>
     </section>
-    
+
     <!-- Пакеты UC -->
     <section id="packages">
-      <h2>Пакеты UC</h2>
+      <h2 data-text="Пакеты UC">Пакеты UC</h2>
       <p>Доступны следующие пакеты UC. Пакеты можно комбинировать между собой, а цена может изменяться:</p>
       <div class="price-grid">
         <div class="price-card">
-          <h3>60 UC</h3>
+          <h3 data-text="60 UC">60 UC</h3>
           <p class="price">от 120 рублей</p>
         </div>
         <div class="price-card">
-          <h3>325 UC</h3>
+          <h3 data-text="325 UC">325 UC</h3>
           <p class="price">от 540 рублей</p>
         </div>
         <div class="price-card">
-          <h3>660 UC</h3>
+          <h3 data-text="660 UC">660 UC</h3>
           <p class="price">от 1100 рублей</p>
         </div>
         <div class="price-card">
-          <h3>1800 UC</h3>
+          <h3 data-text="1800 UC">1800 UC</h3>
           <p class="price">от 2600 рублей</p>
         </div>
         <div class="price-card">
-          <h3>3850 UC</h3>
+          <h3 data-text="3850 UC">3850 UC</h3>
           <p class="price">от 4820 рублей</p>
         </div>
         <div class="price-card">
-          <h3>8100 UC</h3>
+          <h3 data-text="8100 UC">8100 UC</h3>
           <p class="price">от 9120 рублей</p>
         </div>
       </div>
-      <p>Уточнить актуальную цену можно, написав мне в личные сообщения: <a href="https://t.me/enoturn" target="_blank" class="contact">Telegram: @enoturn</a></p>
+      <p>
+        Уточнить актуальную цену можно, написав мне в личные сообщения в Telegram: 
+        <a href="https://t.me/enoturn" target="_blank" class="contact">@enoturn</a>
+      </p>
     </section>
-    
+
     <!-- Цены и актуальность -->
     <section id="pricing">
-      <h2>Цены и актуальность</h2>
+      <h2 data-text="Цены и актуальность">Цены и актуальность</h2>
       <p>Стоимость товаров может меняться в зависимости от курса и других факторов. Для получения точной информации свяжитесь со мной лично.</p>
     </section>
-    
+
     <!-- Как оформить заказ -->
     <section id="order">
-      <h2>Как оформить заказ</h2>
+      <h2 data-text="Как оформить заказ">Как оформить заказ</h2>
       <p>Свяжитесь со мной:</p>
       <ul>
         <li>💬 Telegram: <a href="https://t.me/enoturn" target="_blank" class="contact">@enoturn</a></li>
@@ -301,49 +304,43 @@
       </ul>
       <p>Работаю ежедневно, отвечаю максимально быстро!</p>
     </section>
-    
+
     <!-- Оплата -->
     <section id="payment">
-      <h2>Оплата</h2>
+      <h2 data-text="Оплата">Оплата</h2>
       <p>Принимаю оплату на следующих условиях:</p>
       <ul>
         <li>Полная оплата производится перед началом выполнения заказа.</li>
         <li>
           Способы оплаты:
-          <div style="display: flex; gap: 20px; align-items: center; margin-top: 10px;">
-            <div style="text-align: center;">
-              <p>Тинькофф</p>
-            </div>
-            <div style="text-align: center;">
-              <p>СБП</p>
-            </div>
-            <div style="text-align: center;">
-              <p>QR-код</p>
-            </div>
+          <div style="display: flex; gap: 20px; align-items: center; justify-content: flex-start; margin-top: 10px;">
+            <div class="payment-method" style="text-align: left;"><p>Тинькофф</p></div>
+            <div class="payment-method" style="text-align: left;"><p>СБП</p></div>
+            <div class="payment-method" style="text-align: left;"><p>QR‑код</p></div>
           </div>
         </li>
       </ul>
     </section>
-    
+
     <!-- Гарантии -->
     <section id="guarantee">
-      <h2>Гарантии</h2>
+      <h2 data-text="Гарантии">Гарантии</h2>
       <ul>
         <li>Все заказы выполняются вручную и отправляются в указанный аккаунт.</li>
         <li>Я работаю честно и ценю своих клиентов.</li>
       </ul>
     </section>
-    
+
     <!-- Дополнительная информация -->
     <section id="info">
-      <h2>Дополнительная информация</h2>
+      <h2 data-text="Дополнительная информация">Дополнительная информация</h2>
       <ul>
         <li>Данный сайт является информационной страницей, предназначенной для удобства клиентов и подтверждения моей деятельности.</li>
         <li>Все заказы обрабатываются вручную, без автоматических API-интеграций.</li>
         <li>Если у вас возникнут вопросы — пишите, я всегда рад помочь!</li>
       </ul>
     </section>
-    
+
     <!-- Футер -->
     <footer>
       <p>&copy; 2025 Продажа UC для PUBG MOBILE</p>
@@ -351,48 +348,18 @@
     </footer>
   </div>
 
-  <!-- Всплывающий блок с текстом вместо картинки -->
-  <div id="popupText" style="position: fixed; display: none; z-index: 1000; transition: opacity 0.3s ease; font-size: 1.5rem; font-weight: bold;">
-    АУУУУ ГДЕ ЮСИ
-  </div>
-
-  <!-- JavaScript для показа/скрытия всплывающего текста -->
+  <!-- JavaScript для UC-пакетов: задаём случайный изумрудный цвет для эффекта заполнения через CSS-переменную -->
   <script>
-    const priceCards = document.querySelectorAll('.price-card');
-    const popupText = document.getElementById('popupText');
-
-    // Функция для показа всплывающего текста с увеличенным отступом (40px)
-    function showPopup(card) {
-      popupText.style.display = 'block';
-      const rect = card.getBoundingClientRect();
-      const randomOffsetX = Math.floor(Math.random() * 40) - 20; // случайное смещение от -20 до +20
-      const randomOffsetY = Math.floor(Math.random() * 40) - 20;
-      // Увеличиваем отступ справа до 40px
-      popupText.style.top = (rect.top + window.scrollY + randomOffsetY) + 'px';
-      popupText.style.left = (rect.right + 40 + randomOffsetX) + 'px';
-      popupText.style.opacity = '1';
-    }
-
-    function hidePopup() {
-      popupText.style.opacity = '0';
-      setTimeout(() => {
-        popupText.style.display = 'none';
-      }, 300);
-    }
-
-    priceCards.forEach(card => {
-      // Для десктопа — mouseover/mouseout
-      card.addEventListener('mouseover', () => showPopup(card));
-      card.addEventListener('mouseout', hidePopup);
-      // Для мобильных устройств — touchstart/touchend
-      card.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // предотвращаем двойное срабатывание
-        showPopup(card);
+    if (window.matchMedia("(hover: hover)").matches) {
+      const priceCards = document.querySelectorAll('.price-card');
+      const chromeColors = ["#50C878", "#66CDAA", "#3CB371"];
+      priceCards.forEach(card => {
+        card.addEventListener('mouseover', () => {
+          const randomColor = chromeColors[Math.floor(Math.random() * chromeColors.length)];
+          card.style.setProperty('--highlight-color', randomColor);
+        });
       });
-      card.addEventListener('touchend', (e) => {
-        hidePopup();
-      });
-    });
+    }
   </script>
 </body>
 </html>
