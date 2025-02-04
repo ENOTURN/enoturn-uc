@@ -18,17 +18,20 @@
         transform: translateY(0);
       }
     }
+    
     /* Анимация молнии (быстрое мерцание) */
     @keyframes lightning {
       0% { box-shadow: 0 0 0 0 rgba(80,200,120,0); }
       30% { box-shadow: 0 0 20px 5px rgba(80,200,120,1); }
       100% { box-shadow: 0 0 0 0 rgba(80,200,120,0); }
     }
+    
     /* Анимация мерцания для эффекта заполнения */
     @keyframes flicker {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
     }
+    
     /* Сброс стилей */
     * {
       margin: 0;
@@ -51,10 +54,20 @@
       position: relative;
       text-align: left;
     }
+    
     /* Адаптация для мобильных устройств */
     @media (max-width: 600px) {
       html { font-size: 16px; }
+      .container { padding: 1rem; }
+      header h1 { font-size: 2rem; }
+      header p { font-size: 1rem; }
+      section h2 { font-size: 1.5rem; }
+      .price-card h3 { font-size: 1.2rem; }
+      .price-card .price { font-size: 1rem; }
+      ul { padding-left: 0.5rem; }
+      li { padding-left: 1rem; }
     }
+    
     a {
       color: #c0c0c0;
       text-decoration: none;
@@ -64,16 +77,26 @@
       text-decoration: underline;
       color: #aaa;
     }
-    /* Убираем дополнительные эффекты для контактов */
+    
+    /* Контактная информация – выравнивание по левому краю */
+    .contact-info {
+      text-align: left;
+    }
     a.contact {
       display: inline-block;
-      /* Без дополнительных эффектов */
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
     }
+    a.contact:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 5px #fff;
+    }
+    
     .container {
       max-width: 800px;
       margin: 0 auto;
       padding: 2rem;
     }
+    
     /* Основные блоки: header, section, footer */
     header, section, footer {
       background-color: #1e1e1e;
@@ -90,7 +113,8 @@
       transform: translateY(-3px);
       animation: lightning 0.5s ease-out;
     }
-    /* Заголовок страницы – центрирован */
+    
+    /* Заголовок страницы — центрирован */
     header {
       text-align: center;
     }
@@ -116,7 +140,8 @@
       margin-bottom: 1rem;
       text-align: center;
     }
-    /* Заголовки секций: эффект заполнения внутри букв при наведении */
+    
+    /* Заголовки секций: эффект заполнения внутри букв при наведении (h2) */
     section h2 {
       font-size: 1.8rem;
       margin-bottom: 0.5rem;
@@ -135,15 +160,18 @@
       -webkit-background-clip: text;
       background-clip: text;
       clip-path: inset(100% 0 0 0);
-      transition: clip-path 1s ease;
+      transition: clip-path 2s ease;
     }
-    section:hover h2::after {
+    section:hover h2::after,
+    section.touch-hover h2::after {
       clip-path: inset(0 0 0 0);
     }
+    
     section p {
       margin-bottom: 1rem;
       color: #d0d0d0;
     }
+    
     ul {
       list-style: none;
       padding-left: 1rem;
@@ -160,6 +188,7 @@
       left: 0;
       color: #fff;
     }
+    
     /* Оформление UC-пакетов (.price-card) */
     .price-grid {
       display: grid;
@@ -204,15 +233,17 @@
       -webkit-background-clip: text;
       background-clip: text;
       clip-path: inset(100% 0 0 0);
-      transition: clip-path 1s ease;
+      transition: clip-path 2s ease;
     }
-    .price-card:hover h3::after {
+    .price-card:hover h3::after,
+    .price-card.touch-hover h3::after {
       clip-path: inset(0 0 0 0);
     }
     .price-card .price {
       font-size: 1.2rem;
       font-weight: 700;
     }
+    
     /* Элементы списка оформления заказа */
     #order ul li {
       transition: transform 0.3s ease;
@@ -220,6 +251,7 @@
     #order ul li:hover {
       transform: translateY(-3px);
     }
+    
     /* Футер */
     footer {
       font-size: 0.9rem;
@@ -238,7 +270,7 @@
       <h1>Продажа UC для PUBG MOBILE</h1>
       <p>Профессионально. Минималистично. Надёжно.</p>
     </header>
-
+    
     <!-- Описание работы -->
     <section id="about">
       <h2 data-text="Описание работы">Описание работы</h2>
@@ -251,7 +283,7 @@
       </ul>
       <p><strong>Важно:</strong> Все заказы выполняются в порядке очереди, после подтверждения оплаты.</p>
     </section>
-
+    
     <!-- Пакеты UC -->
     <section id="packages">
       <h2 data-text="Пакеты UC">Пакеты UC</h2>
@@ -287,13 +319,13 @@
         <a href="https://t.me/enoturn" target="_blank" class="contact">@enoturn</a>
       </p>
     </section>
-
+    
     <!-- Цены и актуальность -->
     <section id="pricing">
       <h2 data-text="Цены и актуальность">Цены и актуальность</h2>
       <p>Стоимость товаров может меняться в зависимости от курса и других факторов. Для получения точной информации свяжитесь со мной лично.</p>
     </section>
-
+    
     <!-- Как оформить заказ -->
     <section id="order">
       <h2 data-text="Как оформить заказ">Как оформить заказ</h2>
@@ -304,7 +336,7 @@
       </ul>
       <p>Работаю ежедневно, отвечаю максимально быстро!</p>
     </section>
-
+    
     <!-- Оплата -->
     <section id="payment">
       <h2 data-text="Оплата">Оплата</h2>
@@ -321,7 +353,7 @@
         </li>
       </ul>
     </section>
-
+    
     <!-- Гарантии -->
     <section id="guarantee">
       <h2 data-text="Гарантии">Гарантии</h2>
@@ -330,7 +362,7 @@
         <li>Я работаю честно и ценю своих клиентов.</li>
       </ul>
     </section>
-
+    
     <!-- Дополнительная информация -->
     <section id="info">
       <h2 data-text="Дополнительная информация">Дополнительная информация</h2>
@@ -340,14 +372,14 @@
         <li>Если у вас возникнут вопросы — пишите, я всегда рад помочь!</li>
       </ul>
     </section>
-
+    
     <!-- Футер -->
     <footer>
       <p>&copy; 2025 Продажа UC для PUBG MOBILE</p>
       <p class="small">ИНН 231223665799</p>
     </footer>
   </div>
-
+  
   <!-- JavaScript для UC-пакетов: задаём случайный изумрудный цвет для эффекта заполнения через CSS-переменную -->
   <script>
     if (window.matchMedia("(hover: hover)").matches) {
