@@ -39,9 +39,9 @@
       box-sizing: border-box;
     }
     html {
-      font-size: 18px; /* Чуть крупнее базовый размер */
+      font-size: 18px;
     }
-    /* Затемнённый фон с узором */
+    /* Затемнённый фон с узором и водяным знаком */
     body {
       font-family: 'Oswald', sans-serif;
       background-color: #141414;
@@ -66,10 +66,10 @@
       z-index: -1;
       pointer-events: none;
     }
-    /* Медиа-запрос для устройств с маленьким экраном */
+    /* Адаптация для мобильных устройств */
     @media (max-width: 600px) {
       body::before {
-        font-size: 3rem; /* Уменьшаем размер водяного знака */
+        font-size: 3rem;
         white-space: normal;
         text-align: center;
         width: 90%;
@@ -112,7 +112,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       animation: fadeInUp 0.8s ease-out;
     }
-    /* При наведении — эффект «молнии» */
+    /* Эффект «молнии» при наведении на основные блоки */
     header:hover,
     section:hover,
     footer:hover {
@@ -198,6 +198,7 @@
       box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       animation: fadeInUp 0.8s ease-out;
+      position: relative;
     }
     .price-card:hover {
       transform: translateY(-5px);
@@ -349,36 +350,49 @@
       <p class="small">ИНН 231223665799</p>
     </footer>
   </div>
-<!-- Всплывающий блок с картинкой UC-пакетов -->
-<div id="popup" style="position: fixed; display: none; z-index: 1000; transition: opacity 0.3s ease;">
-  <img src="popup-image.jpg" alt="Popup Image" style="max-width: 300px; border-radius: 10px;">
 
-<!-- Всплывающий блок с картинкой UC-пакетов -->
-<div id="popup" style="position: fixed; display: none; z-index: 1000; transition: opacity 0.3s ease;">
-  <img src="popup-image.jpg" alt="Popup Image" style="max-width: 300px; border-radius: 10px;">
-<script>
-  const priceCards = document.querySelectorAll('.price-card');
-  const popup = document.getElementById('popup');
+  <!-- Всплывающий блок с текстом вместо картинки -->
+  <div id="popupText" style="position: fixed; display: none; z-index: 1000; transition: opacity 0.3s ease; font-size: 1.5rem; font-weight: bold;">
+    АУУУУ ГДЕ ЮСИ
+  </div>
 
-  priceCards.forEach(card => {
-    card.addEventListener('mouseover', (e) => {
-      popup.style.display = 'block';
-      // Получаем положение карточки
+  <!-- JavaScript для показа/скрытия всплывающего текста -->
+  <script>
+    const priceCards = document.querySelectorAll('.price-card');
+    const popupText = document.getElementById('popupText');
+
+    // Функция для показа всплывающего текста с увеличенным отступом (40px)
+    function showPopup(card) {
+      popupText.style.display = 'block';
       const rect = card.getBoundingClientRect();
-      // Размещаем всплывающий блок справа от карточки (с запасом 20px)
-      popup.style.top = (rect.top + window.scrollY) + 'px';
-      popup.style.left = (rect.right + 20) + 'px';
-      popup.style.opacity = '1';
-    });
-    card.addEventListener('mouseout', () => {
-      popup.style.opacity = '0';
-      setTimeout(() => {
-        popup.style.display = 'none';
-      }, 300);
-    });
-  });
-</script>
+      const randomOffsetX = Math.floor(Math.random() * 60) - 28; // случайное смещение от -20 до +20
+      const randomOffsetY = Math.floor(Math.random() * 60) - 28;
+      // Увеличиваем отступ справа до 40px
+      popupText.style.top = (rect.top + window.scrollY + randomOffsetY) + 'px';
+      popupText.style.left = (rect.right + 40 + randomOffsetX) + 'px';
+      popupText.style.opacity = '1';
+    }
 
-</div>
+    function hidePopup() {
+      popupText.style.opacity = '0';
+      setTimeout(() => {
+        popupText.style.display = 'none';
+      }, 300);
+    }
+
+    priceCards.forEach(card => {
+      // Для десктопа — mouseover/mouseout
+      card.addEventListener('mouseover', () => showPopup(card));
+      card.addEventListener('mouseout', hidePopup);
+      // Для мобильных устройств — touchstart/touchend
+      card.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // предотвращаем двойное срабатывание
+        showPopup(card);
+      });
+      card.addEventListener('touchend', (e) => {
+        hidePopup();
+      });
+    });
+  </script>
 </body>
 </html>
