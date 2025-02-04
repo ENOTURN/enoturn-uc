@@ -356,6 +356,29 @@
 <!-- Всплывающий блок с картинкой UC-пакетов -->
 <div id="popup" style="position: fixed; display: none; z-index: 1000; transition: opacity 0.3s ease;">
   <img src="popup-image.jpg" alt="Popup Image" style="max-width: 300px; border-radius: 10px;">
+<script>
+  const priceCards = document.querySelectorAll('.price-card');
+  const popup = document.getElementById('popup');
+
+  priceCards.forEach(card => {
+    card.addEventListener('mouseover', (e) => {
+      popup.style.display = 'block';
+      // Получаем положение карточки
+      const rect = card.getBoundingClientRect();
+      // Размещаем всплывающий блок справа от карточки (с запасом 20px)
+      popup.style.top = (rect.top + window.scrollY) + 'px';
+      popup.style.left = (rect.right + 20) + 'px';
+      popup.style.opacity = '1';
+    });
+    card.addEventListener('mouseout', () => {
+      popup.style.opacity = '0';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 300);
+    });
+  });
+</script>
+
 </div>
 </body>
 </html>
