@@ -365,8 +365,8 @@
     function showPopup(card) {
       popupText.style.display = 'block';
       const rect = card.getBoundingClientRect();
-      const randomOffsetX = Math.floor(Math.random() * 60) - 28; // случайное смещение от -20 до +20
-      const randomOffsetY = Math.floor(Math.random() * 60) - 28;
+      const randomOffsetX = Math.floor(Math.random() * 40) - 20; // случайное смещение от -20 до +20
+      const randomOffsetY = Math.floor(Math.random() * 40) - 20;
       // Увеличиваем отступ справа до 40px
       popupText.style.top = (rect.top + window.scrollY + randomOffsetY) + 'px';
       popupText.style.left = (rect.right + 40 + randomOffsetX) + 'px';
