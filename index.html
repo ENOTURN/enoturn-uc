@@ -26,10 +26,11 @@
       100% { box-shadow: 0 0 0 0 rgba(80,200,120,0); }
     }
     
-    /* Анимация мерцания для эффекта заполнения */
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+    /* Ключевые кадры для эффекта заполнения текста */
+    @keyframes fillAnimation {
+      0% { clip-path: inset(100% 0 0 0); }
+      50% { clip-path: inset(0 0 0 0); }
+      100% { clip-path: inset(100% 0 0 0); }
     }
     
     /* Сброс стилей */
@@ -38,9 +39,11 @@
       padding: 0;
       box-sizing: border-box;
     }
+    
     html {
       font-size: 18px;
     }
+    
     /* Глобальный фон – затемнённый с узором */
     body {
       font-family: 'Oswald', sans-serif;
@@ -49,13 +52,14 @@
         repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px),
         repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px);
       background-size: 20px 20px;
-      color: #c0c0c0;
+      /* Основной цвет текста – хромовый оттенок */
+      color: #d1d1d1;
       line-height: 1.6;
       position: relative;
       text-align: left;
     }
     
-    /* Адаптация для мобильных устройств */
+    /* Адаптация под мобильные устройства */
     @media (max-width: 600px) {
       html { font-size: 16px; }
       .container { padding: 1rem; }
@@ -69,7 +73,7 @@
     }
     
     a {
-      color: #c0c0c0;
+      color: #d1d1d1;
       text-decoration: none;
       transition: color 0.3s ease;
     }
@@ -78,7 +82,7 @@
       color: #aaa;
     }
     
-    /* Контактная информация – выравнивание по левому краю */
+    /* Контактная информация — простое оформление */
     .contact-info {
       text-align: left;
     }
@@ -97,7 +101,7 @@
       padding: 2rem;
     }
     
-    /* Основные блоки: header, section, footer */
+    /* Основные блоки: header, section, footer с собственным фоном и узором */
     header, section, footer {
       background-color: #1e1e1e;
       background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.2) 0, rgba(0,0,0,0.2) 1px, transparent 1px, transparent 10px);
@@ -114,31 +118,24 @@
       animation: lightning 0.5s ease-out;
     }
     
-    /* Заголовок страницы — центрирован */
+    /* Верхний блок: заголовок и описание выровнены по левому краю.
+       Заголовок разбит на две строки, написан заглавными буквами */
     header {
-      text-align: center;
+      text-align: left;
     }
     header h1 {
       font-size: 2.5rem;
       margin-bottom: 0.2rem;
       font-weight: 700;
-      color: #c0c0c0;
+      color: #d1d1d1;
+      text-transform: uppercase;
     }
-    header h1::before {
-      content: "";
-      display: inline-block;
-      vertical-align: middle;
-      width: 40px;
-      height: 40px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/3/39/Ninja.svg') no-repeat center center;
-      background-size: contain;
-      margin-right: 10px;
-    }
+    /* Добавляем <br> для разделения строк вручную в HTML, если необходимо */
     header p {
       font-size: 1.1rem;
       color: #aaa;
       margin-bottom: 1rem;
-      text-align: center;
+      text-align: left;
     }
     
     /* Заголовки секций: эффект заполнения внутри букв при наведении (h2) */
@@ -147,7 +144,7 @@
       margin-bottom: 0.5rem;
       font-weight: 700;
       position: relative;
-      color: #c0c0c0;
+      color: #d1d1d1;
     }
     section h2::after {
       content: attr(data-text);
@@ -155,16 +152,43 @@
       top: 0;
       left: 0;
       width: 100%;
+      height: 100%;
       color: transparent;
-      background: linear-gradient(45deg, #50C878, #3CB371);
+      background: linear-gradient(90deg, #d1d1d1, #ffffff);
       -webkit-background-clip: text;
       background-clip: text;
       clip-path: inset(100% 0 0 0);
-      transition: clip-path 2s ease;
+      animation: fillAnimation 4s infinite;
     }
-    section:hover h2::after,
-    section.touch-hover h2::after {
-      clip-path: inset(0 0 0 0);
+    
+    /* Эффект заполнения для UC-пакетов (заголовки h3) */
+    .price-card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      position: relative;
+      color: #d1d1d1;
+    }
+    .price-card h3::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: transparent;
+      background: linear-gradient(90deg, #d1d1d1, #ffffff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      clip-path: inset(100% 0 0 0);
+      animation: fillAnimation 4s infinite;
+    }
+    
+    /* Ключевые кадры для эффекта заполнения текста */
+    @keyframes fillAnimation {
+      0% { clip-path: inset(100% 0 0 0); }
+      50% { clip-path: inset(0 0 0 0); }
+      100% { clip-path: inset(100% 0 0 0); }
     }
     
     section p {
@@ -214,31 +238,6 @@
       transform: translateY(-5px);
       animation: lightning 0.5s ease-out;
     }
-    /* Эффект заполнения для заголовков UC-пакетов (h3) */
-    .price-card h3 {
-      margin-bottom: 0.5rem;
-      font-size: 1.4rem;
-      font-weight: 700;
-      position: relative;
-      color: #c0c0c0;
-    }
-    .price-card h3::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      color: transparent;
-      background: linear-gradient(45deg, #50C878, #3CB371);
-      -webkit-background-clip: text;
-      background-clip: text;
-      clip-path: inset(100% 0 0 0);
-      transition: clip-path 2s ease;
-    }
-    .price-card:hover h3::after,
-    .price-card.touch-hover h3::after {
-      clip-path: inset(0 0 0 0);
-    }
     .price-card .price {
       font-size: 1.2rem;
       font-weight: 700;
@@ -267,7 +266,7 @@
   <div class="container">
     <!-- Заголовок -->
     <header>
-      <h1>Продажа UC для PUBG MOBILE</h1>
+      <h1>ПРОДАЖА UC ДЛЯ<br>PUBG MOBILE</h1>
       <p>Профессионально. Минималистично. Надёжно.</p>
     </header>
     
@@ -316,7 +315,7 @@
       </div>
       <p>
         Уточнить актуальную цену можно, написав мне в личные сообщения в Telegram: 
-        <a href="https://t.me/enoturn" target="_blank" class="contact">@enoturn</a>
+        <span class="contact-info"><a href="https://t.me/enoturn" target="_blank" class="contact">@enoturn</a></span>
       </p>
     </section>
     
@@ -380,18 +379,33 @@
     </footer>
   </div>
   
-  <!-- JavaScript для UC-пакетов: задаём случайный изумрудный цвет для эффекта заполнения через CSS-переменную -->
+  <!-- JavaScript для активации эффекта заполнения на мобильных устройствах -->
   <script>
-    if (window.matchMedia("(hover: hover)").matches) {
-      const priceCards = document.querySelectorAll('.price-card');
-      const chromeColors = ["#50C878", "#66CDAA", "#3CB371"];
-      priceCards.forEach(card => {
-        card.addEventListener('mouseover', () => {
-          const randomColor = chromeColors[Math.floor(Math.random() * chromeColors.length)];
-          card.style.setProperty('--highlight-color', randomColor);
+    // Для устройств с hover эффект применяется как обычно (через :hover)
+    // Для мобильных устройств активируем класс touch-hover при касании
+    function addTouchEffect(elements) {
+      elements.forEach(el => {
+        el.addEventListener('touchstart', function() {
+          el.classList.add('touch-hover');
+        });
+        el.addEventListener('touchend', function() {
+          el.classList.remove('touch-hover');
         });
       });
     }
+    const sectionElements = document.querySelectorAll('section');
+    const priceCards = document.querySelectorAll('.price-card');
+    addTouchEffect(sectionElements);
+    addTouchEffect(priceCards);
   </script>
+  <!-- Дополнительные стили для эффекта touch-hover -->
+  <style>
+    section.touch-hover h2::after {
+      clip-path: inset(0 0 0 0);
+    }
+    .price-card.touch-hover h3::after {
+      clip-path: inset(0 0 0 0);
+    }
+  </style>
 </body>
 </html>
